@@ -1,0 +1,25 @@
+{
+  "name": "wiser",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server",
+    "test": "./node_modules/.bin/mocha"
+  },
+  "dependencies": {
+    "boom": "^7.2.0",
+    "config": "^1.29.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.2",
+    "require-directory": "^2.1.1",
+    "swagger-express-middleware": "^1.0.0-alpha.12",
+    "swagger-ui-dist": "^3.13.0"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "sinon": "*"
+  }
+}

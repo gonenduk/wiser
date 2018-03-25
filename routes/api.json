@@ -1,0 +1,327 @@
+{
+  "info": {
+    "title": "PPAP API",
+    "version": "0.0.1",
+    "description": "Documentation of the PPAP API"
+  },
+  "basePath": "/api",
+  "swagger": "2.0",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Get all products",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "description": "Filter by { 'field': 'value', ... }"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "type": "string",
+            "description": "Sort by { 'field': 'asc/desc', 'field': 1/-1, ... }"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "minimum": 1,
+            "description": "Limit number of results"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products",
+            "schema": {
+              "$ref": "#/definitions/ProductList"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/stats/stores": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "description": "Get stores statistics",
+        "responses": {
+          "200": {
+            "description": "Stores Stats",
+            "schema": {
+              "$ref": "#/definitions/StoreStatsList"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/stores": {
+      "get": {
+        "tags": [
+          "Stores"
+        ],
+        "description": "Get all stores",
+        "responses": {
+          "200": {
+            "description": "Stores",
+            "schema": {
+              "$ref": "#/definitions/StoreList"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stores"
+        ],
+        "description": "Create a store",
+        "parameters": [
+          {
+            "in": "body",
+            "description": "Store to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "New store",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/stores/{id}": {
+      "get": {
+        "tags": [
+          "Stores"
+        ],
+        "description": "Get a store by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of store to get",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Store",
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Stores"
+        ],
+        "description": "Update a store by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of store to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "description": "Store to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Store"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/responses/NoContentResponse"
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Stores"
+        ],
+        "description": "Delete a store by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of store to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/responses/NoContentResponse"
+          },
+          "default": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "price": {
+          "type": "number"
+        },
+        "shipping": {
+          "type": "string"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "store_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "ProductList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Product"
+      }
+    },
+    "Store": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "StoreList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Store"
+      }
+    },
+    "StoreStats": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "productCount": {
+          "type": "integer"
+        },
+        "minimumPrice": {
+          "type": "number"
+        },
+        "maximumPrice": {
+          "type": "number"
+        },
+        "averagePrice": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "StoreStatsList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StoreStats"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "statusCode"
+      ],
+      "properties": {
+        "statusCode": {
+          "type": "integer"
+        },
+        "error": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "NoContentResponse": {
+      "description": "OK"
+    },
+    "ErrorResponse": {
+      "description": "Error",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    }
+  },
+  "parameters": {
+  },
+  "tags": [
+  ]
+}
