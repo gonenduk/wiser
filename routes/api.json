@@ -98,6 +98,7 @@
         "parameters": [
           {
             "in": "body",
+            "name": "store",
             "description": "Store to create",
             "required": true,
             "schema": {
@@ -160,6 +161,7 @@
           },
           {
             "in": "body",
+            "name": "store",
             "description": "Store to update",
             "required": true,
             "schema": {
